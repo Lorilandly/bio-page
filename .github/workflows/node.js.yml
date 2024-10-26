@@ -4,8 +4,6 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
     
@@ -28,7 +26,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - name: Deploy
-      if: github.ref == 'refs/head/main'
+      if: github.event.pull_request.merged == true
       env:
         deploy_url: google.com
       run: curl "$deploy_url"
